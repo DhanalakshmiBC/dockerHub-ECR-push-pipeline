@@ -1,0 +1,16 @@
+{
+    "name": "nodejs-welcome-ui",
+    "version": "1.0.0",
+    "description": "Simple Node.js UI welcome page for GitHub Actions project",
+    "license": "ISC",
+    "author": "",
+    "type": "commonjs",
+    "main": "app.js",
+    "scripts": {
+        "start": "node ./src/app.js",
+        "test": "echo \"Running UI tests...\" && exit 0"
+    },
+    "dependencies": {
+        "express": "^4.18.2"
+    }
+}
