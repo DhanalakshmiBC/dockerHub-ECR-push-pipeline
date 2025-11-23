@@ -8,7 +8,8 @@
     "main": "app.js",
     "scripts": {
         "start": "node ./src/app.js",
-        "test": "echo \"Running UI tests...\" && exit 0"
+        "test": "echo \"Running UI tests...\" && exit 0",
+        "lint": "eslint ."
     },
     "dependencies": {
         "express": "^4.18.2"
