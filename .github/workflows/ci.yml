@@ -79,7 +79,7 @@ jobs:
               run: |
                 sonar-scanner \
                   -Dsonar.projectKey=DhanalakshmiBC_dockerHub-ECR-push-pipeline \
-                  -Dsonar.organization=DhanalakshmiBC \
+                  -Dsonar.organization=dhanalakshmibc \
                   -Dsonar.sources=. \
                   -Dsonar.host.url=https://sonarcloud.io \
                   -Dsonar.login=${{ secrets.SONAR_TOKEN }}
