@@ -74,7 +74,7 @@ jobs:
                 path: ~/.sonar/native-sonar-scanner
                 key: scanner-${{ runner.os }}
             - name: SonarCloud Scan
-              uses: SonarSource/sonarcloud-github-action@master
+              uses: SonarSource/sonarcloud-github-action@v1
               with:
                 projectBaseDir: .
                 args: >
