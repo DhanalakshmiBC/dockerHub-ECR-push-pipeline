@@ -9,7 +9,28 @@ on:
     pull_request:
         branches: ["main"]
 jobs: 
-    build: 
+    lint-analyasis:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout code
+              uses: actions/checkout@v3
+            - name: setup node
+              uses: actions/setup-node@v3
+              with: 
+                node-version: 18
+            - name: cache dependency nodemodules
+              id: cache
+              uses: actions/cache@v3
+              with: 
+                path: node_modules
+                key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+            - name: install dependencies
+              if: steps.cache.outputs.cache-hit != 'true'
+              run: npm ci
+            - name: lint
+              run: npm run lint
+    
+    test: 
         runs-on: ubuntu-latest
 
         steps:
@@ -19,12 +40,47 @@ jobs:
               uses: actions/setup-node@v3
               with:
                 node-version: 18
-
             - name: Install dependencies
               run: npm install
-              
             - name: Run tests
+              id: run-test
               run: npm test
+            - name: Upload test report
+              if: failure() && steps.run-test.outputs == 'failure'
+              uses: actions/upload-artifact@v4
+              with: 
+                name: test-report
+                path: test.json
+        
+    sonar-analysis:
+        runs-on: ubuntu-latest
+
+        steps: 
+            - name: checkout repo
+              uses: actions/checout@v4
+            - name: setup java 
+              uses: action/setup-java@v3
+              with:
+                distribution: 'temurin'
+                java-version: '17'
+            - name: cache sonarcloud packages
+              uses: actions/cache@v3
+              with: 
+                path: ~/.sonar/cache
+                key: sonar-${{ runner.os }}
+            - name: cache sonarcloud scanner
+              uses: actions/cache@v3
+              with: 
+                path: ~/.sonar/native-sonar-scanner
+                key: scanner-${{ runner.os }}
+            - name: SonarCloud scan
+              uses: SonarSource/sonarcloud-github-action@master
+              with:
+                projectBaseDir: .
+              env: 
+                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN}}
+                SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION}}
+                SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY}}
 
             
 
