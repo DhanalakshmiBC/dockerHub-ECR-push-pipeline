@@ -1,8 +1,23 @@
-import js from "@eslint/js";
-import globals from "globals";
-import { defineConfig } from "eslint/config";
+import eslint from "@eslint/js";
 
-export default defineConfig([
-  { files: ["**/*.{js,mjs,cjs}"], plugins: { js }, extends: ["js/recommended"], languageOptions: { globals: globals.browser } },
-  { files: ["**/*.js"], languageOptions: { sourceType: "script" } },
-]);
+export default [
+  {
+    ignores: ["node_modules/","eslint.config.mjs"],
+    
+  },
+
+  eslint.configs.recommended,
+
+  {
+    languageOptions: {
+      ecmaVersion: 2021,
+      sourceType: "commonjs",
+      globals: {
+        __dirname: "readonly",
+        require: "readonly",
+        process: "readonly",
+        console: "readonly"
+      },
+    }
+  }
+];
