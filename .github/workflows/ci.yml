@@ -73,14 +73,12 @@ jobs:
               with: 
                 path: ~/.sonar/native-sonar-scanner
                 key: scanner-${{ runner.os }}
-            - name: SonarCloud scan
+            - name: SonarCloud Scan
               uses: SonarSource/sonarcloud-github-action@master
-              with:
-                projectBaseDir: .
-              env: 
-                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN}}
-                SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION}}
-                SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY}}
+              env:
+                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                  SONAR_ORGANIZATION: DhanalakshmiBC
+                  SONAR_PROJECT_KEY: DhanalakshmiBC_dockerHub-ECR-push-pipeline
 
             
 
