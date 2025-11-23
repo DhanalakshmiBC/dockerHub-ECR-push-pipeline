@@ -78,7 +78,7 @@ jobs:
               with:
                 projectBaseDir: .
                 args: >
-                  -Dsonar.organization=Dhanalakshmi
+                  -Dsonar.organization=dhanalakshmibc
                   -Dsonar.projectKey=DhanalakshmiBC_dockerHub-ECR-push-pipeline
               env:
                   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
