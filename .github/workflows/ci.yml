@@ -98,7 +98,7 @@ jobs:
               run: snyk auth ${{ secrets.SNYK_TOKEN }}
       
             - name: Fast Snyk Test (no Docker, no extra checks)
-              run: snyk test --severity-threshold=high --exclude=Dockerfile
+              run: snyk test --severity-threshold=high
                 
     build:
         runs-on: ubuntu-latest
@@ -148,6 +148,6 @@ jobs:
                 severity: 'CRITICAL'
             - name: Push docker image to aws ecr
               run: |
-                 ECR_REGISTRY = $(aws sts get-caller-identity --query 'Account' --output text).dkr.ecr.${AWS_REGION}.amazonaws.com
+                 ECR_REGISTRY = "$(aws sts get-caller-identity --query 'Account' --output text).dkr.ecr.${AWS_REGION}.amazonaws.com"
                  docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
                  docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
