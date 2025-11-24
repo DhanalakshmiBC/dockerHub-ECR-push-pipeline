@@ -138,7 +138,7 @@ jobs:
             - name: Docker image
               run: docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
             - name: Scan docker image with trivy
-              uses: aquasecurity/trivy-action@0.19.1
+              uses: aquasecurity/trivy-action@0.19.0
               with: 
                 image-ref: $ECR_REPOSITORY:$IMAGE_TAG
                 format: 'table'
