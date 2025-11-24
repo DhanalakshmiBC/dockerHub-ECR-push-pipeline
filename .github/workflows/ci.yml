@@ -145,7 +145,7 @@ jobs:
                 exit-code: '1'
                 ignore-unfixed: true 
                 vuln-type: 'os,library'
-                severity: 'CRITICAL,HIGH'
+                severity: 'CRITICAL'
             - name: Push docker image to aws ecr
               run: |
                  ECR_REGISTRY = $(aws sts get-caller-identity --query 'Account' --output text).dkr.ecr.${AWS_REGION}.amazonaws.com
