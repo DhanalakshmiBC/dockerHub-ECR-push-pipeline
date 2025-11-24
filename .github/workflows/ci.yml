@@ -129,7 +129,7 @@ jobs:
               with:  
                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
                  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-                 aws-region: ${{ secrets.AWS_REDION }}
+                 aws-region: ${{ secrets.AWS_REGION }}
             - name: Login to Amazon ECR
               id: ecr-login
               uses: aws-actions/amazon-ecr-login@v2
@@ -144,4 +144,8 @@ jobs:
                 ignore-unfixed: true 
                 vuln-type: 'os,library'
                 severity: 'CRITICAL,HIGH'
-            
+            - name: Push docker image to aws ecr
+              run: |
+                 ECR_REGISTRY = $(aws sts get-caller-identity --query 'Account' --output text).dkr.ecr.${AWS_REGION}.amazonaws.com
+                 docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+                 docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
