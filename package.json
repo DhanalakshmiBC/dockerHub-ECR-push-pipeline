@@ -8,9 +8,16 @@
     "main": "app.js",
     "scripts": {
         "start": "node ./src/app.js",
-        "test": "echo \"Running UI tests...\" && exit 0"
+        "test": "echo \"Running UI tests...\" && exit 0",
+        "lint": "eslint ."
     },
     "dependencies": {
         "express": "^4.18.2"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.39.1",
+        "eslint": "^9.39.1",
+        "eslint-plugin-react": "^7.37.5",
+        "globals": "^16.5.0"
     }
 }

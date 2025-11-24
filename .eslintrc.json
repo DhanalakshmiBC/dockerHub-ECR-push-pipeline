@@ -1,0 +1,13 @@
+{
+  "env": {
+    "node": true,
+    "commonjs": true,
+    "es2021": true
+  },
+  "parserOptions": {
+    "sourceType": "script",
+    "ecmaVersion": 12
+  },
+  "extends": ["eslint:recommended"],
+  "rules": {}
+}

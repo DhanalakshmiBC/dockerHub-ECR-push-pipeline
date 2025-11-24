@@ -27,7 +27,7 @@ jobs:
                 key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
             - name: install dependencies
               if: steps.cache.outputs.cache-hit != 'true'
-              run: npm ci
+              run: npm install
             - name: lint
               run: npm run lint
     
@@ -83,3 +83,17 @@ jobs:
                   -Dsonar.sources=. \
                   -Dsonar.host.url=https://sonarcloud.io \
                   -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+    snyk-scan:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v4
+              with:
+                node-version: '18'
+            - run: npm ci
+            - name: snyk scan
+              uses: snyk/actions/node@master
+              with:
+                args: test
+              env: 
+                SNYK_TOKEN: 'e9331f30-ebf4-43fe-8484-2573495ac5ba'
