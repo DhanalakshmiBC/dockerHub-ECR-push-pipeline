@@ -153,7 +153,7 @@ jobs:
                  docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
             - name: update values file
               run: |
-                sed -i "s/tag:.*/tag: \"$TAG\"/" helm-chart-for-node-app/deepu-cluster/values.yaml
+                sed -i "s/tag:.*/tag: \"$IMAGE_TAG\"/" helm-chart-for-node-app/deepu-cluster/values.yaml
 
             - name: commit changes 
               run: 
