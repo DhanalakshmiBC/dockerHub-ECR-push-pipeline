@@ -162,9 +162,10 @@ jobs:
                 sed -i "s/tag:.*/tag: \"$IMAGE_TAG\"/" helm-chart-for-node-app/dhanu-cluster/values.yaml
 
             - name: commit changes 
-              run: 
+              run: |
+                cd helm-chart-for-node-app
                 git config user.email "dhanalakshmi.bc@github.com"
                 git config user.name "DhanalakshmiBC"
                 git add helm-chart-for-node-app/dhanu-cluster/values.yaml
-                git commit -m "Update image tag to $IMAGE_TAG" || true
-                git push
+                git commit -m "Update image tag to $IMAGE_TAG" 
+                git push  
