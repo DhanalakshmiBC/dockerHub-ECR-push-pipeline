@@ -171,3 +171,4 @@ jobs:
                   git add dhanu-cluster/values.yaml
                   git commit -m "Update image tag to $IMAGE_TAG" || true
                   git push origin master
+                  
