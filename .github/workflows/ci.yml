@@ -161,11 +161,11 @@ jobs:
               run: |
                 sed -i "s/tag:.*/tag: \"$IMAGE_TAG\"/" helm-chart-for-node-app/dhanu-cluster/values.yaml
 
-            - name: commit changes 
+            - name: Push changes to helm repo
               run: |
-                cd helm-chart-for-node-app
-                git config user.email "dhanalakshmi.bc@github.com"
-                git config user.name "DhanalakshmiBC"
-                git add dhanu-cluster/values.yaml
-                git commit -m "Update image tag to $IMAGE_TAG" 
-                git push https://x-access-token:${{ secrets.HELM_TOKEN}}@github.com/DhanalakshmiBC/helm-chart-for-node-app.git
+                  cd helm-chart-for-node-app
+                  git config user.email "dhanalakshmi.bc@github.com"
+                  git config user.name "DhanalakshmiBC"
+                  git add dhanu-cluster/values.yaml
+                  git commit -m "Update image tag to $IMAGE_TAG" || true
+                  git push https://x-access-token:${{ secrets.HELM_REPO_TOKEN }}@github.com/DhanalakshmiBC/helm-chart-for-node-app.git
