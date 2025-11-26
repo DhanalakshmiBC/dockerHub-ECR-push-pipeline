@@ -151,3 +151,14 @@ jobs:
                  ECR_REGISTRY="$(aws sts get-caller-identity --query 'Account' --output text).dkr.ecr.${AWS_REGION}.amazonaws.com"
                  docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
                  docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+            - name: update values file
+              run: |
+                sed -i "s/tag:.*/tag: \"$TAG\"/" helm/deepu-cluster/values.yaml
+
+            - name: commit changes 
+              run: 
+                git config user.email "dhanalakshmi.bc@github.com"
+                git config user.name "DhanalakshmiBC"
+                git add helm/deepu-cluster/values.yaml
+                git commit -m "Update image tag to $TAG" || true
+                git push
