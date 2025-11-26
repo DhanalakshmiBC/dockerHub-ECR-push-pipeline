@@ -168,4 +168,4 @@ jobs:
                 git config user.name "DhanalakshmiBC"
                 git add dhanu-cluster/values.yaml
                 git commit -m "Update image tag to $IMAGE_TAG" 
-                git push  
+                git push https://github.com/DhanalakshmiBC/helm-chart-for-node-app.git
