@@ -153,12 +153,12 @@ jobs:
                  docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
             - name: update values file
               run: |
-                sed -i "s/tag:.*/tag: \"$TAG\"/" helm/deepu-cluster/values.yaml
+                sed -i "s/tag:.*/tag: \"$TAG\"/" helm-chart-for-node-app/deepu-cluster/values.yaml
 
             - name: commit changes 
               run: 
                 git config user.email "dhanalakshmi.bc@github.com"
                 git config user.name "DhanalakshmiBC"
-                git add helm/deepu-cluster/values.yaml
+                git add helm-chart-for-node-app/deepu-cluster/values.yaml
                 git commit -m "Update image tag to $IMAGE_TAG" || true
                 git push
