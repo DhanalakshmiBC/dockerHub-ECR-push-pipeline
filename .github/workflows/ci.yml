@@ -154,7 +154,7 @@ jobs:
           
             - name: clone repo
               run: |
-                git clone git@github.com:DhanalakshmiBC/helm-chart-for-node-app.git
+                git clone https://github.com/DhanalakshmiBC/helm-chart-for-node-app.git
                 ls -R helmrepo
 
             - name: update values file
