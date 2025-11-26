@@ -166,6 +166,6 @@ jobs:
                 cd helm-chart-for-node-app
                 git config user.email "dhanalakshmi.bc@github.com"
                 git config user.name "DhanalakshmiBC"
-                git add helm-chart-for-node-app/dhanu-cluster/values.yaml
+                git add dhanu-cluster/values.yaml
                 git commit -m "Update image tag to $IMAGE_TAG" 
                 git push  
