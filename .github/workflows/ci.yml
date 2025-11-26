@@ -167,7 +167,7 @@ jobs:
                   git init
                   git config user.email "dhanalakshmi.bc@github.com"
                   git config user.name "DhanalakshmiBC"
-                  git remote set-url origin https://x-access-token:${{ secrets.HELM_TOKEN }}@github.com/DhanalakshmiBC/helm-chart-for-node-app.git
+                  git remote set-url origin https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/DhanalakshmiBC/helm-chart-for-node-app.git
                   git add dhanu-cluster/values.yaml
                   git commit -m "Update image tag to $IMAGE_TAG" || true
                   git push origin master
