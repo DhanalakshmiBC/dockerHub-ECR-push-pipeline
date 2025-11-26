@@ -160,5 +160,5 @@ jobs:
                 git config user.email "dhanalakshmi.bc@github.com"
                 git config user.name "DhanalakshmiBC"
                 git add helm/deepu-cluster/values.yaml
-                git commit -m "Update image tag to $TAG" || true
+                git commit -m "Update image tag to $IMAGE_TAG" || true
                 git push
