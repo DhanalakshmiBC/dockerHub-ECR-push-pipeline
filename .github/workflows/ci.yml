@@ -241,7 +241,7 @@ jobs:
               with:
                 payload: |
                  {
-                    "text": "${{ steps.result.outputs.status == 'success' && '🎉 Pipeline succeeded!' || '❌ Pipeline failed!' }}"
+                    "text": "${{ steps.result.outputs.status == 'success' && 'Pipeline succeeded!' || 'Pipeline failed!' }}"
                                 }
               env:
                 SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
