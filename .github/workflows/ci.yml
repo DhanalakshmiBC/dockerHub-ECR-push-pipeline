@@ -220,9 +220,10 @@ jobs:
                     git remote set-url origin https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/DhanalakshmiBC/helm-chart-for-node-app.git
                     git add dhanu-cluster/values.yaml
                     git commit -m "Update image tag to $IMAGE_TAG" || true
-                    git push origin master
+                    gi push origin master
 
     notify-users:
+        needs: docker-push
         runs-on: ubuntu-latest
         steps:
             - name: Notify slack on success
