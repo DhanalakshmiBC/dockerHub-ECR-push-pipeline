@@ -32,6 +32,7 @@ jobs:
               run: npm run lint
     
     test: 
+        needs: lint-analyasis
         runs-on: ubuntu-latest
 
         steps:
@@ -54,6 +55,7 @@ jobs:
                 path: test.json
         
     sonar-analysis:
+        needs: test
         runs-on: ubuntu-latest
 
         steps: 
@@ -84,6 +86,7 @@ jobs:
                   -Dsonar.host.url=https://sonarcloud.io \
                   -Dsonar.login=${{ secrets.SONAR_TOKEN }}
     snyk-scan:
+        needs: sonar-analysis
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
@@ -101,6 +104,7 @@ jobs:
               run: snyk test --severity-threshold=high
                 
     build:
+        needs: snyk-scan
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
@@ -119,7 +123,9 @@ jobs:
               with: 
                 name: dist-files
                 path: dist
+   
     ecr-push:
+        needs: build
         runs-on: ubuntu-latest
         env:
            ECR_REPOSITORY: docker-images-for-nodejs
@@ -171,4 +177,30 @@ jobs:
                   git add dhanu-cluster/values.yaml
                   git commit -m "Update image tag to $IMAGE_TAG" || true
                   git push origin master
-                  
+   
+
+    docker-push:
+        runs-on: ubuntu-latest
+        env:
+            IMAGE_TAG: ${{ github.sha }}
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+      
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v2
+      
+            - name: Login to Docker Hub
+              uses: docker/login-action@v3
+              with:
+                username: ${{ secrets.DOCKERHUB_USERNAME }}
+                password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+            - name: Build and push
+              uses: docker/build-push-action@v5
+              with:
+                push: true
+                tags: ${{ secrets.DOCKERHUB_USERNAME }}/myapp:${{env.IMAGE_TAG}}
+
+    notify-users:
+        runs-on: ubuntu-latest
