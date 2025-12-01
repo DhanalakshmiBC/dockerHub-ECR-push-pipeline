@@ -241,11 +241,7 @@ jobs:
               with:
                 payload: |
                  {
-                    "text": "${{ steps.result.outputs.status == 'success' && '🎉 Pipeline succeeded!' || '❌ Pipeline failed!' }}\n\
-                    Repo: ${{ github.repository }}\n\
-                    Branch: ${{ github.ref_name }}\n\
-                    Run: ${{ github.run_id }}\n\
-                    Commit: ${{ github.sha }}"
+                    "text": "${{ steps.result.outputs.status == 'success' && '🎉 Pipeline succeeded!' || '❌ Pipeline failed!' }}"
                                 }
               env:
                 SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
