@@ -178,7 +178,8 @@ jobs:
     #               git commit -m "Update image tag to $IMAGE_TAG" || true
     #               git push origin master
    
-    docker-push:
+    docker-push: 
+        needs: build
         runs-on: ubuntu-latest
         env:
             IMAGE_TAG: ${{ github.sha }}
@@ -221,5 +222,27 @@ jobs:
                     git commit -m "Update image tag to $IMAGE_TAG" || true
                     git push origin master
 
-    # notify-users:
-    #     runs-on: ubuntu-latest
+    notify-users:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Notify slack on success
+              if: failure()
+              uses: slackapi/slack-github-action@v1.24.0
+              with:
+                payload: |
+                 {
+                    "text": "🎉 Failed: Pipeline failed for `${{ github.ref_name }}`"
+                 }
+              env: 
+                SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+            
+            - name: Notify Slack - Success
+              if: success()
+              uses: slackapi/slack-github-action@v1.24.0
+              with:
+                payload: |
+                  {
+                    "text": "🎉 *Build Succeeded!*\n• Repo: `${{ github.repository }}`\n• Branch: `${{ github.ref_name }}`\n• Author: `${{ github.actor }}`\n• Commit: `${{ github.sha }}`"
+                  }
+              env:
+                SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
