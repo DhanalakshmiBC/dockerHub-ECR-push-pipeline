@@ -202,5 +202,5 @@ jobs:
                 push: true
                 tags: ${{ secrets.DOCKERHUB_USERNAME }}/myapp:${{env.IMAGE_TAG}}
 
-    notify-users:
-        runs-on: ubuntu-latest
+    # notify-users:
+    #     runs-on: ubuntu-latest
