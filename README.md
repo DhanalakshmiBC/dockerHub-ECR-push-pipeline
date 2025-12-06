@@ -1,8 +1,8 @@
-Simple Node.js Application with GitHub Actions CI/CD
+## Simple Node.js Application with GitHub Actions CI/CD
 
 This is a lightweight Node.js + Express application that demonstrates a complete CI/CD pipeline using GitHub Actions, including build, test, and Docker image generation.
 
-  Features
+## Features
 	•	Simple Express server serving a static HTML/CSS UI
 	•	Fully automated CI/CD pipeline using GitHub Actions
 	•	Pipeline includes:
@@ -28,7 +28,7 @@ This is a lightweight Node.js + Express application that demonstrates a complete
 │       └── ci.yml         # GitHub Actions pipeline
 └── README.md              # Project documentation
 
- Technologies Used
+## Technologies Used
 	•	Node.js
 	•	Express.js
 	•	GitHub Actions
@@ -39,7 +39,7 @@ This is a lightweight Node.js + Express application that demonstrates a complete
 	•	Slack notifications
 
 
-To run this Project Locally
+## To run this Project Locally
 git clone https://github.com/DhanalakshmiBC/dockerHub-ECR-push-pipeline.git
 cd <your-project>
 npm install
@@ -48,7 +48,7 @@ npm start
 Visit the application at:
 http://localhost:3000
 
-CI/CD Pipeline (GitHub Actions)
+## CI/CD Pipeline (GitHub Actions)
 The workflow (.github/workflows/ci.yml) performs:
 	1.	Checkout repository
 	2.	Setup Node.js
@@ -62,7 +62,7 @@ The workflow (.github/workflows/ci.yml) performs:
 	10.	Slack notifications for success/failure
 
 
-To build and run manually
+## To build and run manually
 docker build -t my-node-app
 docker run -p 3000:3000 my-node-app
 
