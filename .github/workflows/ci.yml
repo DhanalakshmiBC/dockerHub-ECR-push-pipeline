@@ -117,14 +117,16 @@ jobs:
               with: 
                 path: node_modules
                 key: dep-node-modules-${{ hashFiles('**/package-lock.json')}}
-            - run: npm ci
-            - run: npm run build
-            - run: echo 'Deploying....'
-            - name: upload artifacts
-              uses: actions/upload-artifact@v4
-              with: 
-                name: dist-files
-                path: dist
+            - name: Install dependencies
+              run: npm install  
+            - name: Build project
+              run: npm run build
+            - name: Upload artifact
+              if: ${{ hashFiles('dist/**') != ''}}
+              uses: actions/upload-artifact@v3
+              with:
+                  name: build
+                  path: dist
     # builds and pushes the docker image to ecr repository and updates the image tag to helm repository
     # ecr-push:
     #     needs: build
@@ -237,7 +239,7 @@ jobs:
                     git commit -m "Update image tag to $IMAGE_TAG" || true
                     git push origin master
 
-    #noties the slack user with failure or success with predefined message
+    #notifies the slack user with failure or success with predefined message
     notify-users:
         runs-on: ubuntu-latest
         needs: [build, test, snyk-scan, sonar-analysis, docker-push]
